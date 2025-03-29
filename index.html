@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Registration</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+    <h2>Staff Registration</h2>
+    <form id="staffForm">
+        <label>Name:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label>Role (Security or Steward):</label>
+        <input type="text" id="role" required><br><br>
+
+        <label>License Number:</label>
+        <input type="text" id="license" required><br><br>
+
+        <label>Name of Contractor:</label>
+        <input type="text" id="contractor" required><br><br>
+
+        <button type="button" onclick="generateQR()">Generate QR Code</button>
+    </form>
+
+    <div id="qrcode"></div>
+
+    <script>
+        function generateQR() {
+            let name = document.getElementById("name").value;
+            let role = document.getElementById("role").value;
+            let license = document.getElementById("license").value;
+            let contractor = document.getElementById("contractor").value;
+
+            if (name && role && license && contractor) {
+                let qrData = JSON.stringify({ name, role, license, contractor });
+                document.getElementById("qrcode").innerHTML = "";
+                new QRCode(document.getElementById("qrcode"), qrData);
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+    </script>
+
+</body>
+</html>
