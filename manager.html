@@ -26,7 +26,34 @@
         <label>Start Time:</label>
         <input type="time" id="startTime" required><br><br>
 
-        <button type="button" onclick="submitData()">Submit</button>
+        <button type="button" onclick="function submitData() {
+    let bib = document.getElementById("bib").value;
+    let radio = document.getElementById("radio").value;
+    let startTime = document.getElementById("startTime").value;
+
+    let staffData = document.getElementById("staffData").innerHTML;
+    let name = staffData.match(/<strong>Name:<\/strong> (.*?)<\/p>/)[1];
+    let role = staffData.match(/<strong>Role:<\/strong> (.*?)<\/p>/)[1];
+    let license = staffData.match(/<strong>License:<\/strong> (.*?)<\/p>/)[1];
+    let contractor = staffData.match(/<strong>Contractor:<\/strong> (.*?)<\/p>/)[1];
+
+    let fullData = {
+        name, role, license, contractor, bib, radio, startTime
+    };
+
+    fetch("YOUR_GOOGLE_APPS_SCRIPT_URL", { // Replace this with your actual script URL
+        method: "POST",
+        body: JSON.stringify(fullData),
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert("Data submitted successfully!");
+        console.log(data);
+    })
+    .catch(error => console.error("Error:", error));
+}
+">Submit</button>
     </form>
 
     <script>
@@ -43,7 +70,34 @@
         let scanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 250 });
         scanner.render(onScanSuccess);
 
-        function submitData() {
+        function function submitData() {
+    let bib = document.getElementById("bib").value;
+    let radio = document.getElementById("radio").value;
+    let startTime = document.getElementById("startTime").value;
+
+    let staffData = document.getElementById("staffData").innerHTML;
+    let name = staffData.match(/<strong>Name:<\/strong> (.*?)<\/p>/)[1];
+    let role = staffData.match(/<strong>Role:<\/strong> (.*?)<\/p>/)[1];
+    let license = staffData.match(/<strong>License:<\/strong> (.*?)<\/p>/)[1];
+    let contractor = staffData.match(/<strong>Contractor:<\/strong> (.*?)<\/p>/)[1];
+
+    let fullData = {
+        name, role, license, contractor, bib, radio, startTime
+    };
+
+    fetch("YOUR_GOOGLE_APPS_SCRIPT_URL", { // Replace this with your actual script URL
+        method: "POST",
+        body: JSON.stringify(fullData),
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert("Data submitted successfully!");
+        console.log(data);
+    })
+    .catch(error => console.error("Error:", error));
+}
+ {
             let bib = document.getElementById("bib").value;
             let radio = document.getElementById("radio").value;
             let startTime = document.getElementById("startTime").value;
