@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Verification</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+</head>
+<body>
+
+    <h2>Scan Staff QR Code</h2>
+    <div id="qr-reader"></div>
+    <div id="staffData"></div>
+
+    <h3>Manager Input</h3>
+    <form id="managerForm">
+        <label>BIB Number:</label>
+        <input type="text" id="bib" required><br><br>
+
+        <label>Radio Assigned:</label>
+        <select id="radio">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br><br>
+
+        <label>Start Time:</label>
+        <input type="time" id="startTime" required><br><br>
+
+        <button type="button" onclick="submitData()">Submit</button>
+    </form>
+
+    <script>
+        function onScanSuccess(decodedText) {
+            let staffInfo = JSON.parse(decodedText);
+            document.getElementById("staffData").innerHTML = 
+                `<p><strong>Name:</strong> ${staffInfo.name}</p>
+                 <p><strong>Role:</strong> ${staffInfo.role}</p>
+                 <p><strong>License:</strong> ${staffInfo.license}</p>
+                 <p><strong>Contractor:</strong> ${staffInfo.contractor}</p>`;
+            document.getElementById("managerForm").style.display = "block";
+        }
+
+        let scanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 250 });
+        scanner.render(onScanSuccess);
+
+        function submitData() {
+            let bib = document.getElementById("bib").value;
+            let radio = document.getElementById("radio").value;
+            let startTime = document.getElementById("startTime").value;
+
+            let fullData = {
+                ...JSON.parse(decodedText),
+                bib, radio, startTime
+            };
+
+            console.log(fullData); // This should be sent to a backend or database (Next Step)
+        }
+    </script>
+
+</body>
+</html>
